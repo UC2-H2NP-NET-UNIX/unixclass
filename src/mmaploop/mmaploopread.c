@@ -10,12 +10,13 @@ int main(void)
   struct stat st;
   char *p;
   int i;
-  fd=open("mmap.dat",O_RDWR);
-  fstat(fd, &st);
+  fd=open("mmap.dat",O_RDWR); // mmapで使うファイルをオープン
+  fstat(fd, &st); // ファイルサイズを取得
+  // メモリマップ
   p=mmap(0,st.st_size,(PROT_READ|PROT_WRITE),MAP_SHARED,fd,0);
   while(1) {
     for(i=0; i < st.st_size; i++) {
-      printf("[%c]",p[i]);
+      printf("[%c]",p[i]); // メモリマップされた領域を表示
     }
     printf("\n");
     sleep(1);
